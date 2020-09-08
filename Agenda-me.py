@@ -30,7 +30,7 @@ def agregar():
             db.connection.commit()
 
             return redirect(url_for('registro'))
-        else:    
+        else:
             return 'Las contraseñas no coinciden, intentalo de nuevo'
 
 
