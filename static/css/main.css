@@ -1,0 +1,55 @@
+body{
+    background: #aab5c6;  /* fallback for old browsers */
+}
+
+#inicio{
+    color: #C33764;  /* fallback for old browsers */
+}
+
+#navbar_bandeja{
+    padding-top: -50px;
+    background:#d8dee8;
+}
+
+#contenedor_bandeja{
+    
+    background:#d8dee8;
+    padding-top: 0px;
+    max-width: auto;
+    min-width: auto;
+
+    max-height: auto;
+    min-height: auto;
+
+    border-radius: 15px;
+}
+
+#buscar_cuadro{
+    border-radius: 20px;
+}
+
+#ul_eventos{
+    padding: 15px;
+    
+}
+
+#nav_eventos{
+    padding:0px;
+}
+
+#pasar_pagina{
+    padding: 15px;
+}
+
+#logo{
+    width: 200px;
+}
+
+.li_evento{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.list-group-item{
+    background: #c4cce0;
+}
