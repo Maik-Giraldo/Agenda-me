@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<div id="contenedor_bandeja"class="jumbotron jumbotron-fluid ">
+  
+    <nav id="navbar_bandeja" class="navbar navbar-expand-lg navbar-secondary">
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <img id="logo" src="{{ url_for('static', filename ='images/logo.png') }}">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Bandeja
+              <span class="badge badge-primary badge-pill">14</span>
+            </a>
+          </li>
+
+          <form class="form-inline my-2 my-lg-0">
+            <input id="buscar_cuadro" class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+          
+
+
+        </ul>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a id="usuario" class="nav-link" href="/">Usuario</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul id="ul_eventos" class="list-group list-group-flush">
+      
+      <button align="center"id="boton_borrar" type="button" class="btn btn-primary " >Agregar</button>
+
+      <br>
+
+      <li class="list-group-item">
+        <nav id="nav_eventos" class="navbar navbar-expand-lg navbar-secondary">
+          
+            <button id="boton_borrar" type="button" class="btn btn-outline-danger ">X</button>
+
+            <ul class="navbar-nav mr-auto">
+              <li class="li_evento">
+                 Reunion
+              </li>
+            </ul>
+
+            <button id="boton_borrar" type="button" class="btn btn-outline-primary " >✎</button>
+
+            <ul class="nav justify-content-end">
+              <li class="li_evento">
+                02/09/2020
+              </li>
+            </ul>
+
+            <ul class="nav justify-content-end">
+              <li class="li_evento">
+                3:00 PM
+              </li>
+            </ul>
+        </nav>
+      </li>
+
+
+<!--###############################################################################-->
+<!--###############################################################################-->
+    </ul>
+    
+
+    <nav id="pasar_pagina" aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+
+</div>
+
+
+{% endblock %}
