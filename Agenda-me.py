@@ -1,39 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_mysqldb import MySQL
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_mysqldb import MySQL,MySQLdb
+import bcrypt
 
-app = Flask(__name__)
+#Configuracion con la base de datos
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_contraseña'] = ''
 app.config['MYSQL_DB'] = 'agendame'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+mysql = MySQL(app)
 
-db = MySQL(app)
-
-# Ruta de registro de usuario
-@app.route('/registro')
+#Ruta de registro
+@app.route('/agregar', methods=["GET", "POST"])
 def registro():
-    return render_template('registro.html')
-
-@app.route('/agregar', methods = ['POST'])
-def agregar():
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return render_template("registro.html")
+    else:
         usuario = request.form['usuario']
         nombre = request.form['nombre']
         apellidos = request.form['apellidos']
-        contraseña = request.form['contraseña']
+        contraseña = request.form['contraseña'].encode('utf-8')
         contraseña2 = request.form['contraseña2']
+
+        #Encriptacion de contraseña
+        hash_contraseña = bcrypt.hashpw(contraseña, bcrypt.gensalt())
+
+        #Validacion de contraseñas
         if contraseña == contraseña2:
-            curs = db.connection.cursor()
-            curs.execute('INSERT INTO usuarios(usuario, nombre, apellidos, contraseña) VALUES (%s, %s, %s, %s)',
-            (usuario, nombre, apellidos, contraseña))
-            db.connection.commit()
-
-            return redirect(url_for('registro'))
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO usuarios (usuario, nombre, apellidos, contraseña) VALUES (%s,%s,%s,%s)",(usuario,nombre,apellidos,hash_contraseña,))
+            mysql.connection.commit()
+            session['usuario'] = request.form['usuario']
+            session['nombre'] = request.form['nombre']
+            return redirect(url_for('iniciar'))
         else:
-            return 'Las contraseñas no coinciden, intentalo de nuevo'
-
-
+            flash('Las contraseñas no coinciden, intentalo de nuevo')
 
 if __name__ == '__main__':
-    app.run(port = 3000, debug = True)
+    app.secret_key = "^A%DJAJU^JJ123"
+    app.run(debug=True)
