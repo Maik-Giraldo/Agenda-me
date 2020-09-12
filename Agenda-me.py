@@ -37,6 +37,45 @@ def registro():
         else:
             flash('Las contraseñas no coinciden, intentalo de nuevo')
 
+
+# Ruta de registro
+@app.route('/iniciar',methods=["GET","POST"])
+def iniciar():
+
+    # busca si el usuario esta en la bd
+
+    if request.method == 'POST':
+        usuario = request.form['usuario']
+        contraseña = request.form['contraseña'].encode('utf-8')
+
+        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        curl.execute("SELECT * FROM usuarios WHERE usuario=%s",(usuario,))
+        user = curl.fetchone()
+        curl.close()
+
+
+        if user == None:
+            flash('error')
+            return redirect(url_for('iniciar'))
+        
+        # busca si la contraseña le pertenece al usuario
+
+        if len(user) > 0:
+            if bcrypt.hashpw(contraseña, user["contraseña"].encode('utf-8')) == user["contraseña"].encode('utf-8'):
+                session['usuario'] = user['usuario']
+                session['nombre'] = user['nombre']
+                valor= user.get('usuario')
+                print(valor)
+                return render_template('ver.html',lis=valor)
+                
+
+            else:
+                return "error"
+        
+    else:
+        
+        
+        return render_template("inicio.html")
 if __name__ == '__main__':
     app.secret_key = "^A%DJAJU^JJ123"
     app.run(debug=True)
