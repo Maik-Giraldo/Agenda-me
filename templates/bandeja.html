@@ -19,8 +19,8 @@
           </li>
 
           <form class="form-inline my-2 my-lg-0">
-            <input id="buscar_cuadro" class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+            <input id="buscar_cuadro" class="form-control mr-sm-2" name= 'buscar' type="search" placeholder="Buscar..." aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" action='/bandeja' type="submit">Buscar</button>
           </form>
           
 
@@ -28,7 +28,7 @@
         </ul>
         <ul class="nav justify-content-end">
           <li class="nav-item">
-            <a id="usuario" class="nav-link" href="/">Usuario</a>
+            <a id="usuario" class="nav-link" href="/">{{ lis }} </a>
           </li>
         </ul>
       </div>
@@ -37,6 +37,32 @@
     <ul id="ul_eventos" class="list-group list-group-flush">
       
       <button align="center"id="boton_borrar" type="button" class="btn btn-primary " >Agregar</button>
+
+    <class class="form">
+      <form action="/bandeja" method="POST">
+
+        <label for="titulo">Usuario</label>
+        <input type="text" name="usuario"><br/>
+
+        <label for="titulo">Titulo del evento</label>
+        <input type="text" name="titulo"><br/>
+
+        <label for="descricion">Descripcion del evento</label>
+        <input type="text" name="descripcion"><br/>
+
+        <label for="dia">Dia del evento</label>
+        <input type="text" name="dia"><br/>
+
+        <label for="fecha">Fecha del evento/label>
+        <input type="date" name="fecha"><br/>
+
+        <label for="hora">hora del evento/label>
+        <input type="time" name="hora"><br/>
+
+        <br><br>
+        <input type="submit" value="Agregar evento">
+      </form>
+    </class>
 
       <br>
 

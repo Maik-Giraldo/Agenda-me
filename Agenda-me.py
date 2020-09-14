@@ -21,13 +21,14 @@ def registro():
         nombre = request.form['nombre']
         apellidos = request.form['apellidos']
         contraseña = request.form['contraseña'].encode('utf-8')
-        contraseña2 = request.form['contraseña2']
+        contraseña2 = request.form['contraseña2'].encode('utf-8')
 
-        #Encriptacion de contraseña
-        hash_contraseña = bcrypt.hashpw(contraseña, bcrypt.gensalt())
-
-        #Validacion de contraseñas
+        # Validacion de contraseñas
         if contraseña == contraseña2:
+
+            #Encriptacion de contraseña
+            hash_contraseña = bcrypt.hashpw(contraseña, bcrypt.gensalt())
+
             cur = mysql.connection.cursor()
             cur.execute("INSERT INTO usuarios (usuario, nombre, apellidos, contraseña) VALUES (%s,%s,%s,%s)",(usuario,nombre,apellidos,hash_contraseña,))
             mysql.connection.commit()
@@ -35,7 +36,8 @@ def registro():
             session['nombre'] = request.form['nombre']
             return redirect(url_for('iniciar'))
         else:
-            flash('Las contraseñas no coinciden, intentalo de nuevo')
+            flash('Las contraselas no coinciden')
+            return redirect(url_for('agregar'))
 
 
 # Ruta de registro
@@ -43,7 +45,6 @@ def registro():
 def iniciar():
 
     # busca si el usuario esta en la bd
-
     if request.method == 'POST':
         usuario = request.form['usuario']
         contraseña = request.form['contraseña'].encode('utf-8')
@@ -66,22 +67,77 @@ def iniciar():
                 session['nombre'] = user['nombre']
                 valor= user.get('usuario')
                 print(valor)
-                return render_template('ver.html',lis=valor)
+                return render_template('bandeja.html',lis=valor)
                 
 
             else:
-                return "error"
+                flash('El usuario o la contraseña')
+                return redirect(url_for('iniciar'))
         
     else:
-        
-        
         return render_template("inicio.html")
 
-
-
-@app.route('/bandeja')
+#Ruta de bandeja
+@app.route('/bandeja',methods=["GET","POST"])
 def Index():
     return render_template('bandeja.html')
+
+    if request.method == 'GET':
+        return render_template("bandeja.html")
+    else:
+        usuario = request.form['usuario']
+        titulo= request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO eventos (usuario, titulo, descripcion, dia, fecha, hora) VALUES (%s,%s,%s,%s,%s,%s)",(usuario, titulo, descripcion, dia, fecha, hora))
+        mysql.connection.commit()
+        return redirect(url_for('bandeja'))
+    
+@app.route('/eliminar/<string:id>')
+def eliminar(id):
+    curs = db.connection.cursor()
+    curs.execute('DELETE FROM eventos WHERE id = {0}'.format(id))
+    mysql.connection.commit()
+    return redirect(url_for('bandeja'))
+
+#Editar
+@app.route('/editar/<id>', methods = ['POST', 'GET'])
+def get_eventos(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM eventos WHERE id = %s', (id))
+    dato = cur.fetchall()
+    cur.close()
+    print(dato[0])
+    return render_template('bandeja.html', id_evento = data[0])
+
+#Actualizar
+@app.route('/actuaizar/<id>', methods=['POST'])
+def update_contact(id):
+    if request.method == 'POST':
+        titulo= request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE eventos
+            SET titulo = %s,
+                descripcion = %s
+                dia = %s
+                fecha = %s
+                hora = %s
+            WHERE id = %s
+        """, (titulo, descripcion, dia, fecha, hora))
+        flash('Contact Updated Successfully')
+        mysql.connection.commit()
+        return redirect(url_for('bandeja'))
+
+
 
 if __name__ == '__main__':
     app.secret_key = "^A%DJAJU^JJ123"

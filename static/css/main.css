@@ -3,7 +3,13 @@ body{
 }
 
 #inicio{
-    color: #C33764;  /* fallback for old browsers */
+    color: hsl(341, 42%, 83%);  /* fallback for old browsers */
+}
+
+#logo_iniciar{
+    width: 400px;
+    position: relative;
+    left: 470px;
 }
 
 #navbar_bandeja{
