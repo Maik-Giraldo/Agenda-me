@@ -1,9 +1,15 @@
 body{
-    background: #aab5c6;  /* fallback for old browsers */
+    background: #aab5c6; 
 }
 
 #inicio{
-    color: #C33764;  /* fallback for old browsers */
+    color: hsl(341, 42%, 83%);  
+}
+
+#logo_iniciar{
+    width: 400px;
+    position: relative;
+    left: 470px;
 }
 
 #navbar_bandeja{
@@ -52,4 +58,12 @@ body{
 
 .list-group-item{
     background: #c4cce0;
+}
+
+.caja{
+    display: none;
+}
+
+.caja.ocultar{
+    display: block;
 }
