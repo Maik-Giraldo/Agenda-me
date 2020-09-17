@@ -1,9 +1,9 @@
 body{
-    background: #aab5c6;  /* fallback for old browsers */
+    background: #aab5c6; 
 }
 
 #inicio{
-    color: hsl(341, 42%, 83%);  /* fallback for old browsers */
+    color: hsl(341, 42%, 83%);  
 }
 
 #logo_iniciar{
@@ -58,4 +58,12 @@ body{
 
 .list-group-item{
     background: #c4cce0;
+}
+
+.caja{
+    display: none;
+}
+
+.caja.ocultar{
+    display: block;
 }

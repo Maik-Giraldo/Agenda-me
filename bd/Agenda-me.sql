@@ -3,18 +3,18 @@ USE agendame;
 
 create table usuarios(
 	usuario char (30) primary key not null,
-	nombre char (50) not null,
-    apellidos char (100) not null,
-    contraseña varbinary (20) not null
+	nombre char (50),
+    apellidos char (100),
+    contraseña char (100)
 );
 
 create table eventos(
 	id_evento int primary key not null auto_increment,
-    usuario char (30) not null,
-    titulo char (40) not null,
+    usuario char (30),
+    titulo char (40),
     descripcion varchar(200),
-    dia char (20) not null,
-    fecha date not null,
-    hora time not null,
-    foreign key (usuario) references usuarios(usuario)
+    dia char (20),
+    fecha date,
+    hora time
+    
 );
