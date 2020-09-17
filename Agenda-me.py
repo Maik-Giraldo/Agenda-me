@@ -68,9 +68,9 @@ def iniciar():
                 global valor
                 valor= user.get('usuario')
                 print(valor)
+
                 return redirect(url_for('Index'))
                 
-
             else:
                 flash('El usuario o la contraseña')
                 return redirect(url_for('iniciar'))
@@ -143,6 +143,63 @@ def actualizar(id):
         flash('Evento actualizado')
         mysql.connection.commit()
         return redirect(url_for('Index'))
+
+
+
+    if request.method == 'GET':
+        return render_template("bandeja.html")
+    else:
+        usuario = request.form['usuario']
+        titulo= request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO eventos (usuario, titulo, descripcion, dia, fecha, hora) VALUES (%s,%s,%s,%s,%s,%s)",(usuario, titulo, descripcion, dia, fecha, hora))
+        mysql.connection.commit()
+        return redirect(url_for('bandeja'))
+    
+@app.route('/eliminar/<string:id>')
+def eliminar(id):
+    curs = db.connection.cursor()
+    curs.execute('DELETE FROM eventos WHERE id = {0}'.format(id))
+    mysql.connection.commit()
+    return redirect(url_for('bandeja'))
+
+#Editar
+@app.route('/editar/<id>', methods = ['POST', 'GET'])
+def get_eventos(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM eventos WHERE id = %s', (id))
+    dato = cur.fetchall()
+    cur.close()
+    print(dato[0])
+    return render_template('bandeja.html', id_evento = data[0])
+
+#Actualizar
+@app.route('/actuaizar/<id>', methods=['POST'])
+def update_contact(id):
+    if request.method == 'POST':
+        titulo= request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE eventos
+            SET titulo = %s,
+                descripcion = %s
+                dia = %s
+                fecha = %s
+                hora = %s
+            WHERE id = %s
+        """, (titulo, descripcion, dia, fecha, hora))
+        flash('Contact Updated Successfully')
+        mysql.connection.commit()
+        return redirect(url_for('bandeja'))
 
 
 
