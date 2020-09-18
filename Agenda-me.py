@@ -68,9 +68,14 @@ def iniciar():
                 global valor
                 valor= user.get('usuario')
                 print(valor)
+<<<<<<< HEAD
                 return redirect(url_for('Index'))
                 
+=======
+>>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
 
+                return redirect(url_for('Index'))
+                
             else:
                 flash('El usuario o la contraseña')
                 return redirect(url_for('iniciar'))
@@ -86,6 +91,68 @@ def Index():
     curs.execute('SELECT * FROM eventos')
     datos = curs.fetchall()
     print (datos)
+<<<<<<< HEAD
+=======
+    return render_template('bandeja.html', datos = datos, lis = valor)
+
+@app.route('/agregar_eventos', methods = ['POST'])
+def agregar_eventos():
+    if request.method == 'POST':
+        usuario = request.form['usuario']
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO eventos(usuario, titulo, descripcion, dia, fecha, hora) VALUES (%s, %s, %s, %s, %s, %s)',
+        (usuario, titulo, descripcion, dia, fecha, hora))
+        mysql.connection.commit()
+
+        return redirect(url_for('Index'))
+    
+@app.route('/eliminar/<string:id>')
+def eliminar(id):
+    curs = mysql.connection.cursor()
+    curs.execute('DELETE FROM eventos WHERE id_evento = {0}'.format(id))
+    mysql.connection.commit()
+    return redirect(url_for('Index'))
+
+#Editar
+@app.route('/editar/<id>', methods = ['POST', 'GET'])
+def get_eventos(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM eventos WHERE id_evento = %s', (id))
+    dato = cur.fetchall()
+    cur.close()
+    print(dato[0])
+    return render_template('actualizar.html', id_evento = dato[0])
+
+#Actualizar
+@app.route('/actuaizar/<id>', methods=['POST', 'GET'])
+def actualizar(id):
+    if request.method == 'POST':
+        titulo= request.form['titulo']
+        descripcion = request.form['descripcion']
+        dia = request.form['dia']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE eventos
+            SET titulo = %s,
+                descripcion = %s
+                dia = %s
+                fecha = %s
+                hora = %s
+            WHERE id_evento = %s
+        """, (titulo, descripcion, dia, fecha, hora))
+        flash('Evento actualizado')
+        mysql.connection.commit()
+        return redirect(url_for('Index'))
+
+
+>>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
 
     if request.method == 'POST':
         buscar = request.form['buscar']
