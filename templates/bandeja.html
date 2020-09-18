@@ -36,64 +36,70 @@
 
     <ul id="ul_eventos" class="list-group list-group-flush">
       
-      <button align="center"id="boton_borrar" type="button" class="btn btn-primary " >Agregar</button>
+      <button align="center" id="btn" type="button" class="btn btn-primary ">Agregar</button>
 
-    <class class="form">
-      <form action="/bandeja" method="POST">
+    <div id = "caja" class="caja">
+      <class class="form">
+        <form action="/agregar_eventos" method="POST">
 
-        <label for="titulo">Usuario</label>
-        <input type="text" name="usuario"><br/>
+          <label for="titulo">Usuario</label>
+          <input type="text" name="usuario"><br/>
 
-        <label for="titulo">Titulo del evento</label>
-        <input type="text" name="titulo"><br/>
+          <label for="titulo">Titulo del evento</label>
+          <input type="text" name="titulo"><br/>
 
-        <label for="descricion">Descripcion del evento</label>
-        <input type="text" name="descripcion"><br/>
+          <label for="descricion">Descripcion del evento</label>
+          <input type="text" name="descripcion"><br/>
 
-        <label for="dia">Dia del evento</label>
-        <input type="text" name="dia"><br/>
+          <label for="dia">Dia del evento</label>
+          <input type="text" name="dia"><br/>
 
-        <label for="fecha">Fecha del evento/label>
-        <input type="date" name="fecha"><br/>
+          <label for="fecha">Fecha del evento</label>
+          <input type="date" name="fecha"><br/>
 
-        <label for="hora">hora del evento/label>
-        <input type="time" name="hora"><br/>
+          <label for="hora">hora del evento</label>
+          <input type="time" name="hora"><br/>
 
-        <br><br>
-        <input type="submit" value="Agregar evento">
-      </form>
-    </class>
+          <br><br>
+          <input type="submit" value="Agregar evento">
+        </form>
+      </class>
+    </div>
 
       <br>
 
       <li class="list-group-item">
         <nav id="nav_eventos" class="navbar navbar-expand-lg navbar-secondary">
-          
-            <button id="boton_borrar" type="button" class="btn btn-outline-danger ">X</button>
-
-            <ul class="navbar-nav mr-auto">
-              <li class="li_evento">
-                 Reunion
-              </li>
-            </ul>
-
-            <button id="boton_borrar" type="button" class="btn btn-outline-primary " >✎</button>
-
-            <ul class="nav justify-content-end">
-              <li class="li_evento">
-                02/09/2020
-              </li>
-            </ul>
-
-            <ul class="nav justify-content-end">
-              <li class="li_evento">
-                3:00 PM
-              </li>
-            </ul>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <td><b>Eliminar</b></td>
+                  <td><b>Titulo</b></td>
+                  <td><b>Descripcion</b></td>
+                  <td><b>Dia</b></td>
+                  <td><b>fecha</b></td>
+                  <td><b>hora</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for dato in datos %}
+                  <tr>
+                    <td><a href="/eliminar/{{dato.0}}">X</a></td>
+                    <td>{{dato.2}}</td>
+                    <td>{{dato.3}}</td>
+                    <td>{{dato.4}}</td>
+                    <td>{{dato.5}}</td>
+                    <td>{{dato.6}}</td>
+                    <td><a href="/editar/{{ dato.0 }}">✎</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
         </nav>
       </li>
-
-
+      
 <!--###############################################################################-->
 <!--###############################################################################-->
     </ul>
@@ -111,5 +117,6 @@
 
 </div>
 
-
+<script type = "text/javascript" src="/../static/js/boton.js">  
+</script>
 {% endblock %}

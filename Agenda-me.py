@@ -8,9 +8,9 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_contraseña'] = ''
 app.config['MYSQL_DB'] = 'agendame'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
+valor = True
 #Ruta de registro
 @app.route('/agregar', methods=["GET", "POST"])
 def registro():
@@ -65,9 +65,10 @@ def iniciar():
             if bcrypt.hashpw(contraseña, user["contraseña"].encode('utf-8')) == user["contraseña"].encode('utf-8'):
                 session['usuario'] = user['usuario']
                 session['nombre'] = user['nombre']
+                global valor
                 valor= user.get('usuario')
                 print(valor)
-                return render_template('bandeja.html',lis=valor)
+                return redirect(url_for('Index'))
                 
 
             else:
@@ -78,31 +79,36 @@ def iniciar():
         return render_template("inicio.html")
 
 #Ruta de bandeja
-@app.route('/bandeja',methods=["GET","POST"])
+@app.route('/bandeja')
 def Index():
-    return render_template('bandeja.html')
+    global valor
+    curs = mysql.connection.cursor()
+    curs.execute('SELECT * FROM eventos')
+    datos = curs.fetchall()
+    print (datos)
+    return render_template('bandeja.html', datos = datos, lis = valor)
 
-    if request.method == 'GET':
-        return render_template("bandeja.html")
-    else:
-        usuario = request.form['usuario']
-        titulo= request.form['titulo']
+@app.route('/agregar_eventos', methods = ['POST'])
+def agregar_eventos():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
         descripcion = request.form['descripcion']
         dia = request.form['dia']
         fecha = request.form['fecha']
         hora = request.form['hora']
-
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO eventos (usuario, titulo, descripcion, dia, fecha, hora) VALUES (%s,%s,%s,%s,%s,%s)",(usuario, titulo, descripcion, dia, fecha, hora))
+        cur.execute('INSERT INTO eventos(titulo, descripcion, dia, fecha, hora) VALUES (%s, %s, %s, %s, %s)',
+        (titulo, descripcion, dia, fecha, hora))
         mysql.connection.commit()
-        return redirect(url_for('bandeja'))
+
+        return redirect(url_for('Index'))
     
 @app.route('/eliminar/<string:id>')
 def eliminar(id):
-    curs = db.connection.cursor()
+    curs = mysql.connection.cursor()
     curs.execute('DELETE FROM eventos WHERE id = {0}'.format(id))
     mysql.connection.commit()
-    return redirect(url_for('bandeja'))
+    return redirect(url_for('Index'))
 
 #Editar
 @app.route('/editar/<id>', methods = ['POST', 'GET'])
@@ -110,13 +116,12 @@ def get_eventos(id):
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM eventos WHERE id = %s', (id))
     dato = cur.fetchall()
-    cur.close()
     print(dato[0])
-    return render_template('bandeja.html', id_evento = data[0])
+    return render_template('actualizar.html', evento = dato[0])
 
 #Actualizar
-@app.route('/actuaizar/<id>', methods=['POST'])
-def update_contact(id):
+@app.route('/actualizar/<id>', methods=['POST'])
+def actualizar(id):
     if request.method == 'POST':
         titulo= request.form['titulo']
         descripcion = request.form['descripcion']
@@ -127,15 +132,14 @@ def update_contact(id):
         cur.execute("""
             UPDATE eventos
             SET titulo = %s,
-                descripcion = %s
-                dia = %s
-                fecha = %s
+                descripcion = %s,
+                dia = %s,
+                fecha = %s,
                 hora = %s
             WHERE id = %s
-        """, (titulo, descripcion, dia, fecha, hora))
-        flash('Contact Updated Successfully')
+        """, (titulo, descripcion, dia, fecha, hora, id))
         mysql.connection.commit()
-        return redirect(url_for('bandeja'))
+        return redirect(url_for('Index'))
 
 
 
