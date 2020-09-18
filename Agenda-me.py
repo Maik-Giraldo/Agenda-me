@@ -86,6 +86,16 @@ def Index():
     curs.execute('SELECT * FROM eventos')
     datos = curs.fetchall()
     print (datos)
+
+    if request.method == 'POST':
+        buscar = request.form['buscar']
+        cur = mysql.connection.cursor()
+        print (buscar)
+        cur.execute('SET @var1='buscar'; SELECT * FROM eventos WHERE titulo, descripcion, dia, fecha, hora = @var1')
+        datos = curs.fetchall()
+        print (datos)
+        mysql.connection.commit()
+
     return render_template('bandeja.html', datos = datos, lis = valor)
 
 @app.route('/agregar_eventos', methods = ['POST'])
