@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <form action="/actualizar/{{ evento.0 }}" method="POST">
 
     <label for="titulo">Titulo del evento</label> 
@@ -15,25 +14,6 @@
 
     <label for="hora">hora del evento</label>
     <input type="time" name="hora" value="{{ evento.6 }}" ><br/>
-=======
-<form action="/actualizar" method="POST">
 
-    <label for="titulo">Titulo del evento</label>
-    <input type="text" name="titulo"><br/>
-
-    <label for="descricion">Descripcion del evento</label>
-    <input type="text" name="descripcion"><br/>
-
-    <label for="dia">Dia del evento</label>
-    <input type="text" name="dia"><br/>
-
-    <label for="fecha">Fecha del evento</label>
-    <input type="date" name="fecha"><br/>
-
-    <label for="hora">hora del evento</label>
-    <input type="time" name="hora"><br/>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
-
-    <br><br>
-    <input type="submit" value="Actualizar Evento">
-  </form>
+    <input type="submit" class="button" value="Actualizar evento">
+</form>

@@ -67,3 +67,11 @@ body{
 .caja.ocultar{
     display: block;
 }
+
+.caja2{
+    display: none;
+}
+
+.caja2.ocultar{
+    display: block;
+}

@@ -13,47 +13,41 @@
           <img id="logo" src="{{ url_for('static', filename ='images/logo.png') }}">
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Bandeja
-              <span class="badge badge-primary badge-pill">14</span>
+            <a class="nav-link">Bandeja
+              <span class="badge badge-primary badge-pill">{{ numero }}</span>
             </a>
           </li>
 
-          <form class="form-inline my-2 my-lg-0">
+          <form class="form-inline my-2 my-lg-0" action='/bandeja' method='POST'>
             <input id="buscar_cuadro" class="form-control mr-sm-2" name= 'buscar' type="search" placeholder="Buscar..." aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" action='/bandeja' type="submit">Buscar</button>
+            <input type="submit" value="Buscar">
           </form>
-          
-
-
+        
         </ul>
+        
+        
         <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a id="usuario" class="nav-link" href="/">{{ lis }} </a>
-          </li>
-        </ul>
+            <li class="nav-item">
+             <button id="btn2">{{ lis }}</button> 
+            </li>
+
+            <div id="caja2" class=caja2>
+              <a href="/cerrar">Cerrrar sesión</a>
+            </div>
+
+          </ul>
       </div>
     </nav>
 
     <ul id="ul_eventos" class="list-group list-group-flush">
       
       <button align="center" id="btn" type="button" class="btn btn-primary ">Agregar</button>
-<<<<<<< HEAD
 
     <div id = "caja" class="caja">
       <class class="form">
         <form action="/agregar_eventos" method="POST">
 
-          <label for="titulo">Usuario</label>
-          <input type="text" name="usuario"><br/>
-=======
-
-    <div id = "caja" class="caja">
-      <class class="form">
-        <form action="/agregar_eventos" method="POST">
           
-        <label for="titulo">Usuario</label>
-        <input type="text" name="usuario"><br/>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
 
           <label for="titulo">Titulo del evento</label>
           <input type="text" name="titulo"><br/>
@@ -78,35 +72,6 @@
 
       <br>
 
-<<<<<<< HEAD
-=======
-          <label for="titulo">Usuario</label>
-          <input type="text" name="usuario"><br/>
-
-          <label for="titulo">Titulo del evento</label>
-          <input type="text" name="titulo"><br/>
-
-          <label for="descricion">Descripcion del evento</label>
-          <input type="text" name="descripcion"><br/>
-
-          <label for="dia">Dia del evento</label>
-          <input type="text" name="dia"><br/>
-
-          <label for="fecha">Fecha del evento</label>
-          <input type="date" name="fecha"><br/>
-
-          <label for="hora">hora del evento</label>
-          <input type="time" name="hora"><br/>
-
-          <br><br>
-          <input type="submit" value="Agregar evento">
-        </form>
-      </class>
-    </div>
-
-      <br>
-
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
       <li class="list-group-item">
         <nav id="nav_eventos" class="navbar navbar-expand-lg navbar-secondary">
           <div>
@@ -114,10 +79,6 @@
               <thead>
                 <tr>
                   <td><b>Eliminar</b></td>
-<<<<<<< HEAD
-=======
-                  <td><b>Usuario</b></td>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
                   <td><b>Titulo</b></td>
                   <td><b>Descripcion</b></td>
                   <td><b>Dia</b></td>
@@ -129,39 +90,17 @@
                 {% for dato in datos %}
                   <tr>
                     <td><a href="/eliminar/{{dato.0}}">X</a></td>
-<<<<<<< HEAD
-=======
-                    <td>{{dato.1}}</td>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
                     <td>{{dato.2}}</td>
                     <td>{{dato.3}}</td>
                     <td>{{dato.4}}</td>
                     <td>{{dato.5}}</td>
                     <td>{{dato.6}}</td>
-<<<<<<< HEAD
                     <td><a href="/editar/{{ dato.0 }}">✎</a></td>
-=======
-                    <td><a href="/actualizar/{{dato.0}}">✎</a></td>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
                   </tr>
                 {% endfor %}
                 </tbody>
               </table>
             </div>
-<<<<<<< HEAD
-=======
-            <ul class="nav justify-content-end">
-              <li class="li_evento">
-                02/09/2020
-              </li>
-            </ul>
-
-            <ul class="nav justify-content-end">
-              <li class="li_evento">
-                3:00 PM
-              </li>
-            </ul>
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
         </nav>
       </li>
       

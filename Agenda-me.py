@@ -11,9 +11,12 @@ app.config['MYSQL_DB'] = 'agendame'
 mysql = MySQL(app)
 
 valor = True
+usuario = True
+
 #Ruta de registro
 @app.route('/agregar', methods=["GET", "POST"])
 def registro():
+    global usuario
     if request.method == 'GET':
         return render_template("registro.html")
     else:
@@ -35,14 +38,16 @@ def registro():
             session['usuario'] = request.form['usuario']
             session['nombre'] = request.form['nombre']
             return redirect(url_for('iniciar'))
+            flash('Te has registrado correctamente')
         else:
-            flash('Las contraselas no coinciden')
+            flash('Las contraseñas no coinciden')
             return redirect(url_for('agregar'))
 
 
-# Ruta de registro
+# Ruta de inicio de sesion
 @app.route('/iniciar',methods=["GET","POST"])
 def iniciar():
+    global usuario
 
     # busca si el usuario esta en la bd
     if request.method == 'POST':
@@ -68,12 +73,6 @@ def iniciar():
                 global valor
                 valor= user.get('usuario')
                 print(valor)
-<<<<<<< HEAD
-                return redirect(url_for('Index'))
-                
-=======
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
-
                 return redirect(url_for('Index'))
                 
             else:
@@ -83,22 +82,47 @@ def iniciar():
     else:
         return render_template("inicio.html")
 
-#Ruta de bandeja
-@app.route('/bandeja')
-def Index():
-    global valor
-    curs = mysql.connection.cursor()
-    curs.execute('SELECT * FROM eventos')
-    datos = curs.fetchall()
-    print (datos)
-<<<<<<< HEAD
-=======
-    return render_template('bandeja.html', datos = datos, lis = valor)
+#Ruta de cierre de sesion
+@app.route('/cerrar')
+def cerrar():
+    session.clear()
+    return redirect(url_for('iniciar'))
 
+#Ruta de bandeja
+@app.route('/bandeja', methods = ['POST', 'GET'])
+def Index():
+    if 'usuario' in session:
+        global valor
+        global usuario
+        curs = mysql.connection.cursor()
+        curs.execute('SELECT * FROM eventos WHERE usuario = %s', (usuario,))
+        datos = curs.fetchall()
+        numero = curs.rowcount
+
+        print(numero)
+    
+    else:
+        flash('No has iniciado sesión')
+        return redirect(url_for('iniciar'))
+
+    if request.method == 'POST':
+        buscar = request.form['buscar']
+        curs = mysql.connection.cursor()
+        curs.execute("""SELECT *
+                    FROM eventos 
+                    WHERE titulo LIKE %s""", ('%' + buscar + '%',))
+        datos = curs.fetchall()
+        print (datos)
+        mysql.connection.commit()
+
+    return render_template('bandeja.html', lis = valor, datos = datos, numero = numero)
+
+#logica de agregar eventos
 @app.route('/agregar_eventos', methods = ['POST'])
 def agregar_eventos():
+    global usuario
     if request.method == 'POST':
-        usuario = request.form['usuario']
+        
         titulo = request.form['titulo']
         descripcion = request.form['descripcion']
         dia = request.form['dia']
@@ -111,75 +135,7 @@ def agregar_eventos():
 
         return redirect(url_for('Index'))
     
-@app.route('/eliminar/<string:id>')
-def eliminar(id):
-    curs = mysql.connection.cursor()
-    curs.execute('DELETE FROM eventos WHERE id_evento = {0}'.format(id))
-    mysql.connection.commit()
-    return redirect(url_for('Index'))
-
-#Editar
-@app.route('/editar/<id>', methods = ['POST', 'GET'])
-def get_eventos(id):
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM eventos WHERE id_evento = %s', (id))
-    dato = cur.fetchall()
-    cur.close()
-    print(dato[0])
-    return render_template('actualizar.html', id_evento = dato[0])
-
-#Actualizar
-@app.route('/actuaizar/<id>', methods=['POST', 'GET'])
-def actualizar(id):
-    if request.method == 'POST':
-        titulo= request.form['titulo']
-        descripcion = request.form['descripcion']
-        dia = request.form['dia']
-        fecha = request.form['fecha']
-        hora = request.form['hora']
-        cur = mysql.connection.cursor()
-        cur.execute("""
-            UPDATE eventos
-            SET titulo = %s,
-                descripcion = %s
-                dia = %s
-                fecha = %s
-                hora = %s
-            WHERE id_evento = %s
-        """, (titulo, descripcion, dia, fecha, hora))
-        flash('Evento actualizado')
-        mysql.connection.commit()
-        return redirect(url_for('Index'))
-
-
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
-
-    if request.method == 'POST':
-        buscar = request.form['buscar']
-        cur = mysql.connection.cursor()
-        print (buscar)
-        cur.execute('SET @var1='buscar'; SELECT * FROM eventos WHERE titulo, descripcion, dia, fecha, hora = @var1')
-        datos = curs.fetchall()
-        print (datos)
-        mysql.connection.commit()
-
-    return render_template('bandeja.html', datos = datos, lis = valor)
-
-@app.route('/agregar_eventos', methods = ['POST'])
-def agregar_eventos():
-    if request.method == 'POST':
-        titulo = request.form['titulo']
-        descripcion = request.form['descripcion']
-        dia = request.form['dia']
-        fecha = request.form['fecha']
-        hora = request.form['hora']
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO eventos(titulo, descripcion, dia, fecha, hora) VALUES (%s, %s, %s, %s, %s)',
-        (titulo, descripcion, dia, fecha, hora))
-        mysql.connection.commit()
-
-        return redirect(url_for('Index'))
-    
+#Logica de eliminar eventos
 @app.route('/eliminar/<string:id>')
 def eliminar(id):
     curs = mysql.connection.cursor()
@@ -187,7 +143,7 @@ def eliminar(id):
     mysql.connection.commit()
     return redirect(url_for('Index'))
 
-#Editar
+#Logica de editar eventos
 @app.route('/editar/<id>', methods = ['POST', 'GET'])
 def get_eventos(id):
     cur = mysql.connection.cursor()
@@ -196,7 +152,7 @@ def get_eventos(id):
     print(dato[0])
     return render_template('actualizar.html', evento = dato[0])
 
-#Actualizar
+#Logica de actualizar eventos
 @app.route('/actualizar/<id>', methods=['POST'])
 def actualizar(id):
     if request.method == 'POST':

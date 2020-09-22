@@ -9,16 +9,12 @@ create table usuarios(
 );
 
 create table eventos(
-<<<<<<< HEAD
-	id int primary key not null auto_increment,
-=======
-	id_evento int primary key not null auto_increment,
->>>>>>> a193f32a2de2b8f220526884253672bafe8362ec
-    usuario char (30),
+	id int primary key auto_increment,
+    usuario char (30) not null,
     titulo char (40),
     descripcion varchar(200),
     dia char (20),
     fecha date,
-    hora time
-    
+    hora time,
+	foreign key (usuario) references usuarios (usuario)
 );

@@ -4,7 +4,7 @@ contador=0;
 
     
 function cambio(){
-    if(contador==0){
+    if(contador == 0){
         caja.classList.add('ocultar');
         contador=1;
 
@@ -15,3 +15,22 @@ function cambio(){
     }
 
     btn.addEventListener('click',cambio,true)
+
+
+var btn2 = document.getElementById('btn2'),
+caja2 = document.getElementById('caja2'),
+contador2 = 0;
+    
+        
+function cambio2(){
+    if(contador2 == 0){
+        caja2.classList.add('ocultar');
+        contador2 = 1;
+    
+    }else{
+        caja2.classList.remove('ocultar');
+        contador2 = 0;
+    }
+    }
+    
+    btn2.addEventListener('click',cambio2,true)
