@@ -13,7 +13,7 @@
           <img id="logo" src="{{ url_for('static', filename ='images/logo.png') }}">
 
           <li id="bandeja_boton"class="nav-item">
-            <a  class="btn btn-outline-primary" href="/bandeja" >Bandeja
+            <a  class="btn btn-outline-primary">Bandeja
               <span class="badge badge-primary badge-pill">{{ numero }}</span>
             </a>
           </li>
@@ -54,16 +54,18 @@
           
 
           <label for="titulo">Titulo del evento</label>
-          <input type="text" name="titulo" required><br/>
+          <input type="text" name="titulo"><br/>
 
           <label for="descricion">Descripcion del evento</label>
           <input type="text" name="descripcion"><br/>
 
           <label for="fecha">Fecha del evento</label>
-          <input type="date" name="fecha" required><br/>
+          
+          <input type="date" id="fechaReserva" min="2019-09-01" name="fecha"><br>
+    
 
           <label for="hora">hora del evento</label>
-          <input type="time" name="hora" required><br/>
+          <input type="time" name="hora"><br/>
 
           <br><br>
           <input type="submit" value="Agregar evento">
@@ -97,6 +99,7 @@
                       <td>{{dato.3}}</td>
                       <td>{{dato.4}}</td>
                       <td>{{dato.5}}</td>
+                      <td>{{dato.6}}</td>
                       <td><a class="btn btn-light" href="/editar/{{ dato.0 }}">✎</a></td>
                     </tr>
                   {% endfor %}
@@ -110,6 +113,22 @@
     </ul>
     
 </div>
+
+<script>
+var fecha = new Date();
+var anio = fecha.getFullYear();
+var dia = fecha.getDate();
+var _mes = fecha.getMonth();
+_mes = _mes + 1; 
+if (_mes < 10) 
+{
+  var mes = "0" + _mes;
+} else {
+  var mes = _mes.toString;
+}
+document.getElementById("fechaReserva").min = anio + '-' + mes + '-' + dia;
+
+</script>
 
 <script type = "text/javascript" src="/../static/js/boton.js">  
 </script>
