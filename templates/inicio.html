@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Inicio sesion</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -15,7 +15,7 @@
     <img id="logo_iniciar" src="{{ url_for('static', filename ='images/logo.png') }}">
     <div class="container p-4">
 
-    <div id="contenedor_bandeja"class="jumbotron jumbotron-fluid ">
+    <div id="contenedor_inicio"class="jumbotron jumbotron-fluid ">
     
     <form action="/iniciar" method="post">
         <label for="usuario">ingrese su usuario</label>
@@ -23,7 +23,7 @@
         <label for="contraseña">ingrese su contraseña</label>
         <input type="password" name="contraseña"><br/>
         <br><br/>
-        <input type="submit" value="Iniciar Sesión">
+        <input class="btn btn-primary" type="submit" value="Iniciar Sesión">
     </div>
     </div>
 

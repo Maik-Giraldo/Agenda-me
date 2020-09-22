@@ -12,30 +12,31 @@
 
           <img id="logo" src="{{ url_for('static', filename ='images/logo.png') }}">
 
-          <li class="nav-item">
-            <a class="nav-link">Bandeja
+          <li id="bandeja_boton"class="nav-item">
+            <a  class="btn btn-outline-primary">Bandeja
               <span class="badge badge-primary badge-pill">{{ numero }}</span>
             </a>
           </li>
 
-          <form class="form-inline my-2 my-lg-0" action='/bandeja' method='POST'>
+          <form id="form_buscar"class="form-inline my-2 my-lg-0" action='/bandeja' method='POST'>
             <input id="buscar_cuadro" class="form-control mr-sm-2" name= 'buscar' type="search" placeholder="Buscar..." aria-label="Search">
-            <input type="submit" value="Buscar">
+            <input class="btn btn-outline-success" type="submit" value="Buscar">
           </form>
         
         </ul>
-        
-        
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-             <button id="btn2">{{ lis }}</button> 
-            </li>
+  <div class="desplegable">  
+    <nav>
+      <ul>
+          <li>
+            <a class="btn btn-primary dropdown-toggle" href="#">{{ lis }}</a>
+              <ul>
+              <li class="nav-item"><a class="dropdown-item" href="/cerrar">Cerrar sesión</a></li>
+              </ul>
+          </li>
+      </ul>
+    </nav>
+  </div>
 
-            <div id="caja2" class=caja2>
-              <a href="/cerrar">Cerrrar sesión</a>
-            </div>
-
-          </ul>
       </div>
     </nav>
 
@@ -43,7 +44,10 @@
       
       <button align="center" id="btn" type="button" class="btn btn-primary ">Agregar</button>
 
+
+    
     <div id = "caja" class="caja">
+      <div id="formulario_agregar"class="jumbotron">
       <class class="form">
         <form action="/agregar_eventos" method="POST">
 
@@ -69,56 +73,47 @@
         </form>
       </class>
     </div>
+  </div>
 
       <br>
 
-      <li class="list-group-item">
+      <li id="cajon_eventos"class="list-group-item shadow p-3 mb-5 bg-white rounded">
         <nav id="nav_eventos" class="navbar navbar-expand-lg navbar-secondary">
           <div>
             <table>
               <thead>
                 <tr>
                   <td><b>Eliminar</b></td>
-                  <td><b>Titulo</b></td>
-                  <td><b>Descripcion</b></td>
-                  <td><b>Dia</b></td>
-                  <td><b>fecha</b></td>
-                  <td><b>hora</b></td>
+                  <td id="tipdatos_eventos" ><b>Titulo</b></td>
+                  <td id="tipdatos_eventos" ><b>Descripcion</b></td>
+                  <td id="tipdatos_eventos" ><b>Dia</b></td>
+                  <td id="tipdatos_eventos" ><b>Fecha</b></td>
+                  <td id="tipdatos_eventos" ><b>Hora</b></td>
+                  <td id="tipdatos_eventos" ><b>Editar</b></td>
                 </tr>
               </thead>
-              <tbody>
-                {% for dato in datos %}
-                  <tr>
-                    <td><a href="/eliminar/{{dato.0}}">X</a></td>
-                    <td>{{dato.2}}</td>
-                    <td>{{dato.3}}</td>
-                    <td>{{dato.4}}</td>
-                    <td>{{dato.5}}</td>
-                    <td>{{dato.6}}</td>
-                    <td><a href="/editar/{{ dato.0 }}">✎</a></td>
-                  </tr>
-                {% endfor %}
+              <div class="contenedor">
+                <tbody>
+                  {% for dato in datos %}
+                    <tr>
+                      <td><a class="btn btn-danger" href="/eliminar/{{dato.0}}">X</a></td>
+                      <td>{{dato.2}}</td>
+                      <td>{{dato.3}}</td>
+                      <td>{{dato.4}}</td>
+                      <td>{{dato.5}}</td>
+                      <td>{{dato.6}}</td>
+                      <td><a class="btn btn-light" href="/editar/{{ dato.0 }}">✎</a></td>
+                    </tr>
+                  {% endfor %}
                 </tbody>
+              </div>
               </table>
             </div>
         </nav>
       </li>
       
-<!--###############################################################################-->
-<!--###############################################################################-->
     </ul>
     
-
-    <nav id="pasar_pagina" aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav>
-
 </div>
 
 <script type = "text/javascript" src="/../static/js/boton.js">  
