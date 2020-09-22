@@ -13,6 +13,11 @@ mysql = MySQL(app)
 valor = True
 usuario = True
 
+#Ruta de Pagina principal
+@app.route('/')
+def principal():
+    return render_template('principal.html')
+
 #Ruta de registro
 @app.route('/agregar', methods=["GET", "POST"])
 def registro():
@@ -110,7 +115,7 @@ def Index():
         curs = mysql.connection.cursor()
         curs.execute("""SELECT *
                     FROM eventos 
-                    WHERE titulo LIKE %s""", ('%' + buscar + '%',))
+                    WHERE usuario = %s and titulo LIKE %s """, (usuario, '%' + buscar + '%',))
         datos = curs.fetchall()
         print (datos)
         mysql.connection.commit()
@@ -125,12 +130,11 @@ def agregar_eventos():
         
         titulo = request.form['titulo']
         descripcion = request.form['descripcion']
-        dia = request.form['dia']
         fecha = request.form['fecha']
         hora = request.form['hora']
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO eventos(usuario, titulo, descripcion, dia, fecha, hora) VALUES (%s, %s, %s, %s, %s, %s)',
-        (usuario, titulo, descripcion, dia, fecha, hora))
+        cur.execute('INSERT INTO eventos(usuario, titulo, descripcion, fecha, hora) VALUES (%s, %s, %s, %s, %s)',
+        (usuario, titulo, descripcion, fecha, hora))
         mysql.connection.commit()
 
         return redirect(url_for('Index'))
@@ -158,7 +162,6 @@ def actualizar(id):
     if request.method == 'POST':
         titulo= request.form['titulo']
         descripcion = request.form['descripcion']
-        dia = request.form['dia']
         fecha = request.form['fecha']
         hora = request.form['hora']
         cur = mysql.connection.cursor()
@@ -166,11 +169,10 @@ def actualizar(id):
             UPDATE eventos
             SET titulo = %s,
                 descripcion = %s,
-                dia = %s,
                 fecha = %s,
                 hora = %s
             WHERE id = %s
-        """, (titulo, descripcion, dia, fecha, hora, id))
+        """, (titulo, descripcion, fecha, hora, id))
         mysql.connection.commit()
         return redirect(url_for('Index'))
 

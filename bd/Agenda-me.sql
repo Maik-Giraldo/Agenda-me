@@ -13,7 +13,6 @@ create table eventos(
     usuario char (30) not null,
     titulo char (40),
     descripcion varchar(200),
-    dia char (20),
     fecha date,
     hora time,
 	foreign key (usuario) references usuarios (usuario)

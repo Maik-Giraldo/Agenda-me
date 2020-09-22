@@ -13,7 +13,7 @@
           <img id="logo" src="{{ url_for('static', filename ='images/logo.png') }}">
 
           <li id="bandeja_boton"class="nav-item">
-            <a  class="btn btn-outline-primary">Bandeja
+            <a  class="btn btn-outline-primary" href="/bandeja" >Bandeja
               <span class="badge badge-primary badge-pill">{{ numero }}</span>
             </a>
           </li>
@@ -54,19 +54,16 @@
           
 
           <label for="titulo">Titulo del evento</label>
-          <input type="text" name="titulo"><br/>
+          <input type="text" name="titulo" required><br/>
 
           <label for="descricion">Descripcion del evento</label>
           <input type="text" name="descripcion"><br/>
 
-          <label for="dia">Dia del evento</label>
-          <input type="text" name="dia"><br/>
-
           <label for="fecha">Fecha del evento</label>
-          <input type="date" name="fecha"><br/>
+          <input type="date" name="fecha" required><br/>
 
           <label for="hora">hora del evento</label>
-          <input type="time" name="hora"><br/>
+          <input type="time" name="hora" required><br/>
 
           <br><br>
           <input type="submit" value="Agregar evento">
@@ -86,7 +83,6 @@
                   <td><b>Eliminar</b></td>
                   <td id="tipdatos_eventos" ><b>Titulo</b></td>
                   <td id="tipdatos_eventos" ><b>Descripcion</b></td>
-                  <td id="tipdatos_eventos" ><b>Dia</b></td>
                   <td id="tipdatos_eventos" ><b>Fecha</b></td>
                   <td id="tipdatos_eventos" ><b>Hora</b></td>
                   <td id="tipdatos_eventos" ><b>Editar</b></td>
@@ -101,7 +97,6 @@
                       <td>{{dato.3}}</td>
                       <td>{{dato.4}}</td>
                       <td>{{dato.5}}</td>
-                      <td>{{dato.6}}</td>
                       <td><a class="btn btn-light" href="/editar/{{ dato.0 }}">✎</a></td>
                     </tr>
                   {% endfor %}
