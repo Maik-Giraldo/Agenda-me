@@ -51,6 +51,68 @@ body{
     width: 200px;
 }
 
+#bandeja_boton{
+    padding:10px;
+padding-left: 30px;
+    position:relative;
+    
+}
+
+#form_buscar{
+    padding-left: 150px;
+}
+
+#formulario_agregar{
+    position: unset;
+    display:inline-block;
+}
+
+#cajon_eventos{
+    position: relative;
+    float: left;
+}
+
+#contenedor_inicio{
+    background:#d8dee8;
+    padding: 30px;
+    max-width: auto;
+    min-width: auto;
+
+    max-height: auto;
+    min-height: auto;
+
+    border-radius: 15px;
+    
+}
+
+#contenedor_registro{
+    background:#d8dee8;
+    padding: 30px;
+    max-width: auto;
+    min-width: auto;
+
+    max-height: auto;
+    min-height: auto;
+
+    border-radius: 15px;
+    
+}
+
+.datos_eventos{
+    background-color:#CCC;
+	width:100%;
+	height:100px;
+    display:flex;
+    justify-content: space-around;
+}
+
+.contenido_evento{
+    height:80px;
+    width:10%;
+    float:left;
+    margin: 10px;
+}
+
 .li_evento{
     padding-right: 10px;
     padding-left: 10px;
@@ -74,4 +136,39 @@ body{
 
 .caja2.ocultar{
     display: block;
+}
+
+#tipdatos_eventos{
+    padding-right: 133px;
+}
+td{
+    padding-right: 10px;
+}
+
+.desplegable{position:relative; top:10px;margin:0;padding:0;box-sizing:border-box;font-size:0;}  
+.desplegable nav a{
+      text-decoration:none;
+      color:white;
+      font-size:14px;
+      }
+            
+.desplegable nav li{
+      display:inline-block;
+    border-radius: 6px;
+      padding:3px;
+      text-align:center;
+    background-color: #aab5c6;
+      position:relative;
+}
+        
+            
+.desplegable nav li>ul{
+      display:none;
+      }
+
+.desplegable nav li:hover>ul{
+      display:block;
+      position:absolute;
+      top:40px;
+      right: 0px;
 }

@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="es" >
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Registrarse</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel='stylesheet' href="{{ url_for('static', filename ='css/main.css') }}">
+
+    <script src='main.js'></script>
   </head>
   <body>
+
+    <img id="logo_iniciar" src="{{ url_for('static', filename ='images/logo.png') }}">
+    <div class="container p-4">
+
+    <div id="contenedor_registro"class="jumbotron jumbotron-fluid ">
+    
 
     <form action="/agregar" method="POST">
         <label for="Usuario">Ingrese su nombre de usuario</label>
@@ -19,11 +31,13 @@
         <label for="contraseña">Crea una contraseña</label>
         <input type="password" name="contraseña"><br/>
 
-        <label for="contraseña">repita su contraseña</label>
+        <label for="contraseña">Repita su contraseña</label>
         <input type="password" name="contraseña2"><br/>
         <br><br/>
-        <input type="submit" value="Registrarse">
+        <input class="btn btn-primary" type="submit" value="Registrarse">
     </form>
+    </div>
+    </div>
 
   </body>
 </html>

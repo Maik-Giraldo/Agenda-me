@@ -1,3 +1,10 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<center><h1>Actualizar Informaciòn</h1></center>
+
+<div id="contenedor_registro"class="jumbotron jumbotron-fluid ">
 <form action="/actualizar/{{ evento.0 }}" method="POST">
 
     <label for="titulo">Titulo del evento</label> 
@@ -15,5 +22,8 @@
     <label for="hora">hora del evento</label>
     <input type="time" name="hora" value="{{ evento.6 }}" ><br/>
 
-    <input type="submit" class="button" value="Actualizar evento">
+    <input type="submit" class="btn btn-primary" value="Actualizar evento">
 </form>
+</div>
+
+{% endblock %}
