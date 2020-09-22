@@ -11,7 +11,10 @@
     
     <!-- Custom style -->
     <link rel='stylesheet' href="{{ url_for('static', filename ='css/main.css') }}">
-    
+
+
+<script type = "text/javascript" src="/../static/js/boton.js">  
+</script>
 </head>
 <body>
     
@@ -20,6 +23,17 @@
     {% block content %}
     {% endblock %}
 </div>
+
+{% for message in get_flashed_messages() %}
+<center>
+<div id="div_flash"  class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>Anuncio</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="muestra_oculta('div_flash')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</center>
+{% endfor %}
 
 </body>
 </html>
