@@ -40,4 +40,14 @@
     document.getElementById("fechaReserva").min = anio + '-' + mes + '-' + dia;
     
     </script>
+
+{% for message in get_flashed_messages() %}
+<div id="div_flash"  class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>Anuncio</strong> {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="muestra_oculta('div_flash')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+
 {% endblock %}

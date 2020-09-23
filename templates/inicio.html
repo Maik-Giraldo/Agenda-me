@@ -10,23 +10,43 @@
     <link rel='stylesheet' href="{{ url_for('static', filename ='css/main.css') }}">
 
     <script src='main.js'></script>
+    <script type = "text/javascript" src="/../static/js/boton.js">  
+    </script>
 </head>
 <body>
+    <center>
     <img id="logo_iniciar" src="{{ url_for('static', filename ='images/logo.png') }}">
     <div class="container p-4">
-
+        <br>
+        <br>
     <div id="contenedor_inicio"class="jumbotron jumbotron-fluid ">
-    
+        <h5 id="titulo_iniciar"class="card-title">Inicia sesion</h5>
     <form action="/iniciar" method="post">
         <label for="usuario">ingrese su usuario</label>
         <input type="text" name="usuario"><br/>
         <label for="contraseña">ingrese su contraseña</label>
         <input type="password" name="contraseña"><br/>
-        <br><br/>
+        <br>
         <input class="btn btn-primary" type="submit" value="Iniciar Sesión">
-        <a href="/agregar">Registrarse</a>
-    </div>
-    </div>
+        <br>
+        <div id="registrate">        
+            No estas registrado?
+            <a href="/agregar">Registrate</a>
+        </div>
 
+        
+    </div>
+    </div>
+    {% for message in get_flashed_messages() %}
+    <center>
+    <div id="div_flash"  class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Anuncio</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="muestra_oculta('div_flash')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </center>
+    {% endfor %}
+</center>
 </body>
 </html>

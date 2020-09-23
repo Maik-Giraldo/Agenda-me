@@ -44,8 +44,8 @@
       
       <button align="center" id="btn" type="button" class="btn btn-primary ">Agregar</button>
 
-
-    
+      <br>
+    <center>
     <div id = "caja" class="caja">
       <div id="formulario_agregar"class="jumbotron">
       <class class="form">
@@ -68,12 +68,12 @@
           <input type="time" name="hora"><br/>
 
           <br><br>
-          <input type="submit" value="Agregar evento">
+          <input class="btn btn-outline-primary" type="submit" value="Agregar evento">
         </form>
       </class>
     </div>
   </div>
-
+</center>
       <br>
 
       <li id="cajon_eventos"class="list-group-item shadow p-3 mb-5 bg-white rounded">
@@ -94,12 +94,11 @@
                 <tbody>
                   {% for dato in datos %}
                     <tr>
-                      <td><a class="btn btn-danger" href="/eliminar/{{dato.0}}">X</a></td>
+                      <td><a class="btn btn-danger" onclick="ConfirmDelete()" href="/eliminar/{{dato.0}}">X</a></td>
                       <td>{{dato.2}}</td>
                       <td>{{dato.3}}</td>
                       <td>{{dato.4}}</td>
                       <td>{{dato.5}}</td>
-                      <td>{{dato.6}}</td>
                       <td><a class="btn btn-light" href="/editar/{{ dato.0 }}">✎</a></td>
                     </tr>
                   {% endfor %}
@@ -111,8 +110,11 @@
       </li>
       
     </ul>
-    
+
+
 </div>
+<!-- no permite que el usuario se salga de la sesion recargando la pagina-->
+<p></p> <script type="text/javascript"> $('p').append(Math.random()); $(window).bind({ beforeunload: function(ev) { ev.preventDefault(); }, unload: function(ev) { ev.preventDefault(); } }); </script>
 
 <script>
 var fecha = new Date();

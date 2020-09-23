@@ -37,8 +37,8 @@ def registro():
             mysql.connection.commit()
             session['usuario'] = request.form['usuario']
             session['nombre'] = request.form['nombre']
-            return redirect(url_for('iniciar'))
             flash('Te has registrado correctamente')
+            return redirect(url_for('iniciar'))
         else:
             flash('Las contraseñas no coinciden')
             return redirect(url_for('agregar'))
@@ -73,10 +73,11 @@ def iniciar():
                 global valor
                 valor= user.get('usuario')
                 print(valor)
+                flash('Has iniciado sesion correctamente')
                 return redirect(url_for('Index'))
                 
             else:
-                flash('El usuario o la contraseña')
+                flash('Nombre de usuario o contraseña incorrecta.')
                 return redirect(url_for('iniciar'))
         
     else:
@@ -164,11 +165,10 @@ def actualizar(id):
             UPDATE eventos
             SET titulo = %s,
                 descripcion = %s,
-                dia = %s,
                 fecha = %s,
                 hora = %s
             WHERE id = %s
-        """, (titulo, descripcion, dia, fecha, hora, id))
+        """, (titulo, descripcion, fecha, hora, id))
         mysql.connection.commit()
         return redirect(url_for('Index'))
 

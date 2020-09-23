@@ -9,14 +9,17 @@
     <link rel='stylesheet' href="{{ url_for('static', filename ='css/main.css') }}">
 
     <script src='main.js'></script>
+    <script type = "text/javascript" src="/../static/js/boton.js">  
+    </script>
   </head>
   <body>
-
+<center>
     <img id="logo_iniciar" src="{{ url_for('static', filename ='images/logo.png') }}">
     <div class="container p-4">
 
     <div id="contenedor_registro"class="jumbotron jumbotron-fluid ">
-    
+      <h5 id="titulo_iniciar"class="card-title">Registrate</h5>
+      <br>
 
     <form action="/agregar" method="POST">
         <label for="Usuario">Ingrese su nombre de usuario</label>
@@ -35,9 +38,23 @@
         <input type="password" name="contraseña2"><br/>
         <br><br/>
         <input class="btn btn-primary" type="submit" value="Registrarse">
+        <div id="registrate">        
+          Ya estas registrado?
+          <a href="/iniciar">Inicia sesion</a>
+      </div>
     </form>
     </div>
     </div>
-
+    {% for message in get_flashed_messages() %}
+    <center>
+    <div id="div_flash"  class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Anuncio</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="muestra_oculta('div_flash')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </center>
+    {% endfor %}
+  </center>
   </body>
 </html>
