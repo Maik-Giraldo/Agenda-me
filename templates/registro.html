@@ -2,7 +2,7 @@
 <html lang="es" >
   <head>
     <meta charset="utf-8">
-    <title>Registrarse</title>
+    <title>Regístrarse</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -18,29 +18,29 @@
     <div class="container p-4">
 
     <div id="contenedor_registro"class="jumbotron jumbotron-fluid ">
-      <h5 id="titulo_iniciar"class="card-title">Registrate</h5>
+      <h5 id="titulo_iniciar"class="card-title">Regístrate</h5>
       <br>
 
     <form action="/agregar" method="POST">
         <label for="Usuario">Ingrese su nombre de usuario</label>
-        <input type="text" name="usuario"><br/>
+        <input type="text" required name="usuario"><br/>
 
         <label for="nombre">Ingrese su nombre</label>
-        <input type="text" name="nombre"><br/>
+        <input type="text" required name="nombre"><br/>
 
         <label for="apellidos">Ingrese sus apellidos</label>
-        <input type="text" name="apellidos"><br/>
+        <input type="text" required name="apellidos"><br/>
 
         <label for="contraseña">Crea una contraseña</label>
-        <input type="password" name="contraseña"><br/>
+        <input type="password" required name="contraseña"><br/>
 
         <label for="contraseña">Repita su contraseña</label>
         <input type="password" name="contraseña2"><br/>
         <br><br/>
         <input class="btn btn-primary" type="submit" value="Registrarse">
         <div id="registrate">        
-          Ya estas registrado?
-          <a href="/iniciar">Inicia sesion</a>
+          ¿Ya estas registrado?
+          <a href="/iniciar">Inicia sesión</a>
       </div>
     </form>
     </div>

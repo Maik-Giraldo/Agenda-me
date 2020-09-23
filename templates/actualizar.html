@@ -8,20 +8,20 @@
 <form action="/actualizar/{{ evento.0 }}" method="POST">
 
     <label for="titulo">Titulo del evento</label> 
-    <input type="text" name="titulo" value="{{ evento.2 }}" ><br/>
+    <input type="text" name="titulo" required value="{{ evento.2 }}" ><br/>
 
     <label for="descricion">Descripcion del evento</label>
-    <input type="text" name="descripcion" value="{{ evento.3 }}" ><br/>
+    <input type="text" name="descripcion" required value="{{ evento.3 }}" ><br/>
 
 
     <label for="fecha">Fecha del evento</label>
-    <input type="date" id="fechaReserva" min="2019-09-01" name="fecha" value="{{ evento.4 }}"> <br>
+    <input type="date" id="fechaReserva" required min="2019-09-01" name="fecha" value="{{ evento.4 }}"> <br>
 
 
     <label for="hora">hora del evento</label>
-    <input type="time" name="hora" value="{{ evento.5 }}" ><br/>
+    <input type="time" name="hora" required value="{{ evento.5 }}" ><br/>
 
-    <input type="submit" class="btn btn-primary" value="Actualizar evento">
+    <input type="submit" class="btn btn-primary" required value="Actualizar evento">
     <a href="/bandeja">Cancelar</a>
 </form>
 </div>

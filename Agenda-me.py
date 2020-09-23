@@ -26,22 +26,34 @@ def registro():
         contraseña = request.form['contraseña'].encode('utf-8')
         contraseña2 = request.form['contraseña2'].encode('utf-8')
 
-        # Validacion de contraseñas
-        if contraseña == contraseña2:
+        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        curl.execute("SELECT * FROM usuarios WHERE usuario=%s",(usuario,))
+        user = curl.fetchone()
+        curl.close()
+        
+        if user != None:
+            print(user)
+            flash('Este usuario ya se encuentra registrado')
+            return redirect(url_for('registro'))
 
-            #Encriptacion de contraseña
-            hash_contraseña = bcrypt.hashpw(contraseña, bcrypt.gensalt())
-
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO usuarios (usuario, nombre, apellidos, contraseña) VALUES (%s,%s,%s,%s)",(usuario,nombre,apellidos,hash_contraseña,))
-            mysql.connection.commit()
-            session['usuario'] = request.form['usuario']
-            session['nombre'] = request.form['nombre']
-            flash('Te has registrado correctamente')
-            return redirect(url_for('iniciar'))
         else:
-            flash('Las contraseñas no coinciden')
-            return redirect(url_for('agregar'))
+
+            # Validacion de contraseñas
+            if contraseña == contraseña2:
+
+                #Encriptacion de contraseña
+                hash_contraseña = bcrypt.hashpw(contraseña, bcrypt.gensalt())
+
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO usuarios (usuario, nombre, apellidos, contraseña) VALUES (%s,%s,%s,%s)",(usuario,nombre,apellidos,hash_contraseña,))
+                mysql.connection.commit()
+                session['usuario'] = request.form['usuario']
+                session['nombre'] = request.form['nombre']
+                flash('Te has registrado correctamente')
+                return redirect(url_for('iniciar'))
+            else:
+                flash('Las contraseñas no coinciden')
+                return redirect(url_for('registro'))
 
 
 # Ruta de inicio de sesion
@@ -61,7 +73,7 @@ def iniciar():
 
 
         if user == None:
-            flash('error')
+            flash('Este usuario no se encuentra registrado')
             return redirect(url_for('iniciar'))
         
         # busca si la contraseña le pertenece al usuario
@@ -77,7 +89,7 @@ def iniciar():
                 return redirect(url_for('Index'))
                 
             else:
-                flash('Nombre de usuario o contraseña incorrecta.')
+                flash('El usuario o la contraseña son incorrectos.')
                 return redirect(url_for('iniciar'))
         
     else:
