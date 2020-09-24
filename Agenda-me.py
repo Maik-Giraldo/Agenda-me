@@ -13,6 +13,11 @@ mysql = MySQL(app)
 valor = True
 usuario = True
 
+#Ruta principal
+@app.route('/', methods=["GET", "POST"])
+def principal():
+    return render_template("index.html")
+    
 #Ruta de registro
 @app.route('/agregar', methods=["GET", "POST"])
 def registro():
