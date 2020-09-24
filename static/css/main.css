@@ -201,6 +201,14 @@ padding-left: 30px;
     display: block;
 }
 
+.caja3{
+    display: none;
+}
+
+.caja3.ocultar{
+    display: block;
+}
+
 #tipdatos_eventos{
     padding-right: 133px;
 }

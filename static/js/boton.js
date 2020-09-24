@@ -44,13 +44,3 @@ function muestra_oculta(id){
     window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
     muestra_oculta('div_flash');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
     }
-
-
-function ConfirmDelete()
-{
-  var x = confirm("¿Estas seguro de eliminar?");
-  if (x)
-      return true;
-  else
-    return false;
-}

@@ -94,7 +94,7 @@
                 <tbody>
                   {% for dato in datos %}
                     <tr>
-                      <td><a class="btn btn-danger" onclick="ConfirmDelete()" href="/eliminar/{{dato.0}}">X</a></td>
+                      <td><a class="btn btn-danger" onclick="return confirm('¿Estas seguro de eliminar este evento?')" href="/eliminar/{{dato.0}}">X</a></td>
                       <td>{{dato.2}}</td>
                       <td>{{dato.3}}</td>
                       <td>{{dato.4}}</td>

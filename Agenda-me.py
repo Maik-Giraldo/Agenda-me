@@ -104,7 +104,7 @@ def iniciar():
 @app.route('/cerrar')
 def cerrar():
     session.clear()
-    return redirect(url_for('iniciar'))
+    return redirect(url_for('principal'))
 
 #Ruta de bandeja
 @app.route('/bandeja', methods = ['POST', 'GET'])
